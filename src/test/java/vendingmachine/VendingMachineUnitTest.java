@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -44,7 +45,7 @@ public class VendingMachineUnitTest {
     @Test
     public void validateProductCostAndQuantity() {
 
-        HashMap<Product, Integer> orderedProduct = vendingMachine.getOrderedProduct();
+        Map<Product, Integer> orderedProduct = vendingMachine.getOrderedProduct();
 
         assertEquals(21, orderedProduct.values().stream().mapToInt(Integer::intValue).sum());
 
@@ -155,6 +156,14 @@ public class VendingMachineUnitTest {
 
         //total balance amount to be inserted
         assertEquals(vendingMachine.getTotalCoinsCost() - vendingMachine.getTotalOrderCost(), vendingMachine.collectChange());
+    }
+
+    @Test
+    public void dispenseProductsFromMachine() {
+
+
+        //total products dispensed
+        assertEquals(21, vendingMachine.dispenseProducts().size());
     }
 
 

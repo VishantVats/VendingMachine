@@ -1,6 +1,8 @@
 package vendingmachine;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Vending Machine interface - operations to be exposed
@@ -19,7 +21,7 @@ public interface VendingMachineInterface {
      *
      * @return All the ordered Product as a mapping of Product types to Integer quantities.
      */
-    public HashMap<Product, Integer> getOrderedProduct();
+    public Map<Product, Integer> getOrderedProduct();
 
     /**
      * get total amount of selected products
@@ -71,6 +73,12 @@ public interface VendingMachineInterface {
      * @return
      */
     public int collectChange();
+
+    /**
+     * dispense products from machine
+     * @return
+     */
+    public List<Product> dispenseProducts();
 
 
 

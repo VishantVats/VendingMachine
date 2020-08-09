@@ -1,6 +1,9 @@
 package vendingmachine;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Vending Machine
@@ -10,27 +13,29 @@ public class VendingMachine implements VendingMachineInterface {
     /**
      * Product items to order quantities
      */
-     HashMap<Product, Integer> prodMap = new HashMap<>();
+     Map<Product, Integer> prodMap;
 
     /**
      *  Coins with quantities
      */
-    HashMap<Coin, Integer> coinMap = new HashMap<>();
+    Map<Coin, Integer> coinMap ;
 
     /**
      * Constructor
      */
     VendingMachine() {
+        this.prodMap = new HashMap<>();
+        this.coinMap = new HashMap<>();
 
     }
 
     /**
      * add or select product to order
      * @param type
-     * @param ProductCount
+     * @param productCount
      */
     public void addToOrder(final Product type, final int productCount) {
-        
+        System.out.println("Product Type: "+ type+" Count: "+productCount);
         prodMap.put(type, productCount);
 
     }
@@ -39,7 +44,11 @@ public class VendingMachine implements VendingMachineInterface {
      *
      * @return prodMap
      */
-    public HashMap<Product, Integer> getOrderedProduct() {
+    public Map<Product, Integer> getOrderedProduct() {
+        System.out.println("Total Products selected..");
+        for(Product prod: prodMap.keySet()){
+            System.out.println("Name: "+prod.label()+" quantity: "+prodMap.get(prod));
+        }
         
         return prodMap;
     }
@@ -55,6 +64,7 @@ public class VendingMachine implements VendingMachineInterface {
         for(Product prod: prodMap.keySet()){
             total = total+ prod.cost()*prodMap.get(prod);
         }
+        System.out.println("Total amount to be paid: "+total);
 
         return total;
     }
@@ -65,7 +75,7 @@ public class VendingMachine implements VendingMachineInterface {
      * @param coinCount
      */
     public void insertCoin(final Coin type, final int coinCount){
-
+        System.out.println("Coin inserted : "+type+" || Number of coins: "+coinCount );
         coinMap.put(type, coinCount);
     }
 
@@ -78,6 +88,7 @@ public class VendingMachine implements VendingMachineInterface {
         for(Coin coin: coinMap.keySet()){
             totalCost = totalCost+ coin.cost()*coinMap.get(coin);
         }
+        System.out.println("Total amount of coins inserted: "+totalCost);
 
         return totalCost;
 
@@ -101,6 +112,24 @@ public class VendingMachine implements VendingMachineInterface {
 
             return change;
         }
+
+    /**
+     * dispense products from vending machine
+     * @return
+     */
+    public List<Product> dispenseProducts() {
+        List<Product> prodList = new ArrayList<>();
+        System.out.println("Total products to be dispensed...");
+        for(Product prod: prodMap.keySet()){
+
+            System.out.println("Product Name :"+prod.label() +" Quantity: "+prodMap.get(prod));
+            for(int i =0;i<prodMap.get(prod);i++){
+                prodList.add(prod);
+            }
+
+        }
+        return prodList;
+    }
 
 
     /**
@@ -140,6 +169,8 @@ public class VendingMachine implements VendingMachineInterface {
         for(Product prod: prodMap.keySet()){
             total = total+ prodMap.get(prod);
         }
+        System.out.println("Total Number of Products: "+total);
+
         return total;
     }
 
@@ -154,6 +185,7 @@ public class VendingMachine implements VendingMachineInterface {
             totalCoins = totalCoins+ coinMap.get(coin);
         }
 
+        System.out.println("Total coins inserted: "+totalCoins);
         return totalCoins;
 
     }
