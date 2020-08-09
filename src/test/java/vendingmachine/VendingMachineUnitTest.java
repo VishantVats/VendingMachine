@@ -4,6 +4,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static junit.framework.TestCase.assertEquals;
 
@@ -12,6 +13,7 @@ import static junit.framework.TestCase.assertEquals;
  * @author Vishant
  */
 public class VendingMachineUnitTest {
+
     private static VendingMachine vendingMachine;
 
     @BeforeClass
@@ -21,62 +23,62 @@ public class VendingMachineUnitTest {
 
     @Test
     public void selectNothing() {
-        vendingMachine.addToOrder(Product.CHOCOLATE, 0);
-        vendingMachine.addToOrder(Product.COLDDRINK, 0);
-        vendingMachine.addToOrder(Product.CANDY, 0);
+        vendingMachine.addToOrder(new Chocolate(), 0);
+        vendingMachine.addToOrder(new Candy(), 0);
+        vendingMachine.addToOrder(new ColdDrink(), 0);
 
         //total products selected
         assertEquals(0, vendingMachine.getTotalOrderCost());
     }
 
-   @Test
+    @Test
     public void selectProducts() {
-        vendingMachine.addToOrder(Product.CHOCOLATE, 6);
-        vendingMachine.addToOrder(Product.COLDDRINK, 5);
-        vendingMachine.addToOrder(Product.CANDY, 10);
+        vendingMachine.addToOrder(new Chocolate(), 6);
+        vendingMachine.addToOrder(new Candy(), 10);
+        vendingMachine.addToOrder(new ColdDrink(), 5);
 
         //total product cost
         assertEquals(2100, vendingMachine.getTotalOrderCost());
-       //total product selected
-       assertEquals(21, vendingMachine.getTotalOrderQuantity());
+        //total product selected
+        assertEquals(21, vendingMachine.getTotalOrderQuantity());
     }
 
     @Test
     public void validateProductCostAndQuantity() {
 
-        HashMap<Product, Integer> orderedProduct = vendingMachine.getOrderedProduct();
+        Map<Item, Integer> orderedProduct = vendingMachine.getOrderedItem();
 
         assertEquals(21, orderedProduct.values().stream().mapToInt(Integer::intValue).sum());
 
         orderedProduct.keySet().forEach(Product -> {
-            if ("Chocholate".equals(Product.label())) {
-                assertEquals(100, Product.cost());
+            if ("Chocolate".equals(Product.getName())) {
+                assertEquals(100, Product.getCost());
             }
 
-            if ("Candy".equals(Product.label())) {
-                assertEquals(50, Product.cost());
+            if ("Candy".equals(Product.getName())) {
+                assertEquals(50, Product.getCost());
             }
 
-            if ("ColdDrink".equals(Product.label())) {
-                assertEquals(200, Product.cost());
+            if ("ColdDrink".equals(Product.getName())) {
+                assertEquals(200, Product.getCost());
             }
         });
 
         //total chocolates selected
-        assertEquals(6, vendingMachine.getTypeCount(Product.CHOCOLATE));
+        assertEquals(6, vendingMachine.getTypeCount(new Chocolate()));
         //amount of chocolates
-        assertEquals(600, vendingMachine.getTypeCost(Product.CHOCOLATE));
+        assertEquals(600, vendingMachine.getTypeCost(new Chocolate()));
 
         //total candies selected
-        assertEquals(10, vendingMachine.getTypeCount(Product.CANDY));
+        assertEquals(10, vendingMachine.getTypeCount(new Candy()));
         //amount of candies
-        assertEquals(500, vendingMachine.getTypeCost(Product.CANDY));
+        assertEquals(500, vendingMachine.getTypeCost(new Candy()));
 
         //total colddrinks selected
-        assertEquals(5, vendingMachine.getTypeCount(Product.COLDDRINK));
+        assertEquals(5, vendingMachine.getTypeCount(new ColdDrink()));
 
         //amount of colddrinnks
-        assertEquals(1000, vendingMachine.getTypeCost(Product.COLDDRINK));
+        assertEquals(1000, vendingMachine.getTypeCost(new ColdDrink()));
 
         // Validates order size
         assertEquals(21, vendingMachine.getTotalOrderQuantity());
@@ -84,19 +86,19 @@ public class VendingMachineUnitTest {
 
     @Test
     public void validateProduct() {
-    	for (Product p : Product.values()) {
-    		switch(p.label()) {
-    		case("Chocolate"):
-    			assertEquals(100, p.cost());
-    			break;
-    		case("Candy"):
-    			assertEquals(50, p.cost());
-    			break;
-    		case("ColdDrink"):
-    			assertEquals(200, p.cost());
-    			break;
-    		}
-    	}
+        for (Product p : Product.values()) {
+            switch(p.label()) {
+                case("Chocolate"):
+                    assertEquals(100, p.cost());
+                    break;
+                case("Candy"):
+                    assertEquals(50, p.cost());
+                    break;
+                case("ColdDrink"):
+                    assertEquals(200, p.cost());
+                    break;
+            }
+        }
     }
 
 
@@ -155,6 +157,14 @@ public class VendingMachineUnitTest {
 
         //total balance amount to be inserted
         assertEquals(vendingMachine.getTotalCoinsCost() - vendingMachine.getTotalOrderCost(), vendingMachine.collectChange());
+    }
+
+    @Test
+    public void dispenseProductsFromMachine() {
+
+
+        //total products dispensed
+        assertEquals(21, vendingMachine.dispenseItems().size());
     }
 
 

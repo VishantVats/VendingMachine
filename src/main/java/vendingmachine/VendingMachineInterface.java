@@ -1,6 +1,8 @@
 package vendingmachine;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Vending Machine interface - operations to be exposed
@@ -9,40 +11,40 @@ import java.util.HashMap;
 public interface VendingMachineInterface {
 
     /**
-     * add or select product in vending machine
-     * @param type The type of Product being added to the order.
-     * @param count The number of units of Product type 'type' to add to the order.
+     * add or select Item in vending machine
+     * @param type The type of Item being added to the order.
+     * @param count The number of units of Item type 'type' to add to the order.
      */
-    public void addToOrder(final Product type, final int count);
+    public void addToOrder(final Item type, final int count);
 
     /**
      *
-     * @return All the ordered Product as a mapping of Product types to Integer quantities.
+     * @return All the ordered Item as a mapping of Item types to Integer quantities.
      */
-    public HashMap<Product, Integer> getOrderedProduct();
+    public Map<Item, Integer> getOrderedItem();
 
     /**
-     * get total amount of selected products
+     * get total amount of selected Items
      * @return The total cost of the order.
      */
     public int getTotalOrderCost();
 
     /**
-     * get count of specific product
-     * @param type The type of Product
-     * @return The total number of units of Product 'type' in the order.
+     * get count of specific Item
+     * @param type The type of Item
+     * @return The total number of units of Item 'type' in the order.
      */
-    public int getTypeCount(Product type);
+    public int getTypeCount(Item type);
 
     /**
-     * get cost of specific product
-     * @param type The type of Product being ordered
-     * @return The total cost of just the Product units of 'type' in the order.
+     * get cost of specific Item
+     * @param type The type of Item being ordered
+     * @return The total cost of just the Item units of 'type' in the order.
      */
-    public int getTypeCost(Product type);
+    public int getTypeCost(Item type);
 
     /**
-     * get count of products selected
+     * get count of Items selected
      * @return
      */
     public int getTotalOrderQuantity();
@@ -71,6 +73,12 @@ public interface VendingMachineInterface {
      * @return
      */
     public int collectChange();
+
+    /**
+     * dispense Items from machine
+     * @return
+     */
+    public List<Item> dispenseItems();
 
 
 
