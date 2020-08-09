@@ -14,7 +14,8 @@ public class VendingMachine implements VendingMachineInterface {
     /**
      * Item items to order quantities
      */
-    Map<Item, Integer> prodMap;
+
+     Map<Item, Integer> prodMap;
 
     /**
      *  Coins with quantities
@@ -50,7 +51,6 @@ public class VendingMachine implements VendingMachineInterface {
         for(Item prod: prodMap.keySet()){
             System.out.println("Name: "+prod.getName()+" quantity: "+prodMap.get(prod));
         }
-
         return prodMap;
     }
 
@@ -131,6 +131,8 @@ public class VendingMachine implements VendingMachineInterface {
         }
         return prodList;
     }
+
+
 
 
     /**

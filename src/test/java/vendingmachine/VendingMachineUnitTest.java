@@ -47,7 +47,6 @@ public class VendingMachineUnitTest {
     public void validateProductCostAndQuantity() {
 
         Map<Item, Integer> orderedProduct = vendingMachine.getOrderedItem();
-
         assertEquals(21, orderedProduct.values().stream().mapToInt(Integer::intValue).sum());
 
         orderedProduct.keySet().forEach(Product -> {
